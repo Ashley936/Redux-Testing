@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+# React testing best practices
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. We try while running the test of one component not to access the inner workings or actual implementation from another component.
 
-## Available Scripts
+2. We use Enzyme to write tests that are specifically configured for react applications
+ >for enzyne set up -> we install Enzyme and @wojtekmaj/enzyme-adapter-react-17 (react-version-17)
+ > then we create a setupTests.js file in the src dir
+ > where we use *Enzyme.configure({ adaptor: new Adaptor()})* to configure adaptor to our react version
 
-In the project directory, you can run:
+3. Enzyme Api
+    1. Static render: only render static html, it only allows us to create an assertion about the html that was crated.
+    2. Shallow render: renders only the component and not it's children
+    > used when we want to test one component in isolation and not make any assertion about it's components
+    3. Full DOM render: renders the component with all the children
+    > used to render our whole application and test interactions with various components
+docs: airbnb.io/enzyme/docs
 
-### `npm start`
+4. beforeEach() function: It's used to extract and pull out logic that needs to occur before every test inside a file.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+5. Steps for stimulating a change event => 
+    1. Find the element
+    2. Simulate a change event
+    3. Provide a fake change object
+    4. Force the component to update
+    5. Assert that the value has changed or required change has happened
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+6. describe function is used to group together cerain type of tests that have some common logic.
 
-### `npm test`
+7. simulate function simulate a change event and paas a mock event object
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+8. prop funtion returns the value of a prop passed to the specified prop
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+9. to check the text shown on the screen we use render().text() method as render() returns a cheerowrapper around the rendered HTML of current node's subtree and then text gives the text it contains.
